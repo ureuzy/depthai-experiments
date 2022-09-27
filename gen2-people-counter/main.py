@@ -71,3 +71,17 @@ with dai.Device(pm.pipeline) as device:
 
         if cv2.waitKey(3000 if IMAGE else 1) == ord('q'):
             break
+
+
+        # nn_data detection persons
+        nn_data = nm.decode(nm.outputQueue.get())
+        print(len(nn_data))
+        nm.draw(frame, nn_data)
+
+        # 以下映像表示なので検知数出すだけならいらなさそう。リソース使用率を抑えれる
+        cv2.putText(frame, f"People count: {len(nn_data)}", (5, 30), cv2.FONT_HERSHEY_TRIPLEX, 1, (0,0,255))
+        cv2.imshow("color", frame)
+
+
+        if cv2.waitKey(3000 if IMAGE else 1) == ord('q'):
+            break
